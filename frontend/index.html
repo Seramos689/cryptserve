@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRYPTSERVE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg-image"></div>
+  <div class="bg-overlay"></div>
+
+  <!-- Top-right Earnings shortcut -->
+  <button type="button" class="earnings-fab" id="earningsFab" title="My Earnings">
+    <i class="fas fa-chart-line"></i>
+    <span>Earnings</span>
+  </button>
+
+  <main class="content">
+    <section id="home" class="section active">
+      <div class="section-inner">
+        <h1>Welcome</h1>
+        <p>CRYPTSERVE is an online service company that provides miners with online crypto mining servers.</p>
+        <div class="card-grid">
+          <div class="card"><i class="fas fa-moon"></i><h3>24/7 services</h3><p>Always online.</p></div>
+          <div class="card"><i class="fas fa-layer-group"></i><h3>User-Friendly</h3><p>Always good to beginers.</p></div>
+          <div class="card"><i class="fas fa-mobile-alt"></i><h3>Good Customer Servuice</h3><p>Real time chats with our agent.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="section-inner">
+        <h1>About Us</h1>
+        <p>CRYPTSERVE is an online based crypto service that lets miners mine crptos such as BTC without physically owning the hardware used in mining the crypto.</p>
+         <p>Once a member purchace a products, the user earns rewards everyday for 7 days and can only withdraw once the 7 days period are over </p>
+         <p>When a user is registered, he/she recieves a bonus which later can be used to purchase the hardwares</p>
+
+        <div class="about-stats">
+          <div class="stat"><span class="number">10+</span><span class="label">Years</span></div>
+          <div class="stat"><span class="number">200k</span><span class="label">Members</span></div>
+          <div class="stat"><span class="number">98%</span><span class="label">Satisfaction</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="section-inner">
+        <h1>Contact</h1>
+        <p>Reach out anytime. We usually reply within 24 hours.</p>
+        <div class="contact-channels" id="contactChannels"></div>
+        <form class="contact-form" id="contactForm">
+          <input type="text" id="contactName" placeholder="Your name" required>
+          <input type="email" id="contactEmail" placeholder="Email address" required>
+          <textarea id="contactMessage" placeholder="Your message..." rows="4" required></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="products" class="section">
+      <div class="section-inner">
+        <h1>Products</h1>
+        <p>Explore our curated collection of digital experiences.</p>
+        <div class="product-grid" id="productGrid"></div>
+      </div>
+    </section>
+
+    <section id="checkout" class="section">
+      <div class="section-inner">
+        <button class="back-btn" id="backToProducts"><i class="fas fa-arrow-left"></i> Back to Products</button>
+        <h1>Checkout</h1>
+        <div class="checkout-card">
+          <div class="checkout-image-wrap"><img id="checkoutImage" src="" alt="Product"></div>
+          <div class="checkout-details">
+            <h2 id="checkoutName">—</h2>
+            <p id="checkoutDesc" class="checkout-desc">—</p>
+            <div class="checkout-meta">
+              <span class="price" id="checkoutPrice">$0</span>
+              <div class="qty-control">
+                <button type="button" class="qty-btn" id="qtyMinus">−</button>
+                <input type="number" id="checkoutQty" value="1" min="1" max="99" readonly>
+                <button type="button" class="qty-btn" id="qtyPlus">+</button>
+              </div>
+            </div>
+            <div class="checkout-total">Total: <strong id="checkoutTotal">$0.00</strong></div>
+            <button class="btn-primary btn-full" id="confirmOrderBtn"><i class="fas fa-shopping-cart"></i> Confirm Order</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="purchases" class="section">
+      <div class="section-inner">
+        <h1>My Purchases</h1>
+        <p>Items you bought earn <strong>25% of the purchase price every day for 7 days</strong>.</p>
+        <div id="purchasesList" class="purchases-list">
+          <p class="muted" id="purchasesEmpty">No purchases yet. Buy a product to start earning daily returns.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="profile" class="section">
+      <div class="section-inner profile-section">
+        <div id="authGate">
+          <div id="loginPanel">
+            <h1>Sign In</h1>
+            <p style="color:var(--text-muted);margin-bottom:20px">Log in to manage balance and profile.</p>
+            <form id="userLoginForm" class="contact-form">
+              <input type="email" id="loginEmail" placeholder="Email" required value="alex.rivera@example.com">
+              <input type="password" id="loginPassword" placeholder="Password" required value="user123">
+              <button type="submit">Login</button>
+            </form>
+            <p style="margin-top:14px;font-size:.9rem;color:var(--text-muted)">
+              <a href="#" id="showForgot" style="color:var(--accent)">Forgot password?</a>
+              &nbsp;·&nbsp;
+              <a href="#" id="showRegister" style="color:var(--accent)">Register</a>
+            </p>
+            <p style="margin-top:8px;font-size:.8rem;color:var(--text-muted)">Demo: alex.rivera@example.com / user123</p>
+          </div>
+          <div id="registerPanel" hidden>
+            <h1>Register</h1>
+            <p style="color:var(--text-muted);margin-bottom:16px;font-size:.9rem">An invitation code is required to create an account.</p>
+            <form id="userRegisterForm" class="contact-form">
+              <input type="text" id="regName" placeholder="Full name" required>
+              <input type="email" id="regEmail" placeholder="Email" required>
+              <input type="password" id="regPassword" placeholder="Password" required minlength="4">
+              <input type="text" id="regInvite" placeholder="Invitation code" required autocomplete="off">
+              <button type="submit">Create Account</button>
+            </form>
+            <p style="margin-top:14px;font-size:.9rem;color:var(--text-muted)">Have an account? <a href="#" id="showLogin" style="color:var(--accent)">Sign in</a></p>
+            <p style="margin-top:8px;font-size:.8rem;color:var(--text-muted)">Demo invite codes: WELCOME2026 or INVITE-DEMO</p>
+          </div>
+          <div id="forgotPanel" hidden>
+            <h1>Forgot Password</h1>
+            <p style="color:var(--text-muted);margin-bottom:16px;font-size:.9rem">Enter your email to receive a reset code.</p>
+            <form id="forgotForm" class="contact-form">
+              <input type="email" id="forgotEmail" placeholder="Email" required>
+              <button type="submit">Send Reset Code</button>
+            </form>
+            <div id="resetStep" hidden style="margin-top:20px">
+              <p style="color:var(--text-muted);margin-bottom:12px;font-size:.9rem">Enter the code and your new password.</p>
+              <form id="resetForm" class="contact-form">
+                <input type="text" id="resetCode" placeholder="6-digit reset code" required autocomplete="off">
+                <input type="password" id="resetNewPass" placeholder="New password" required minlength="4">
+                <button type="submit">Reset Password</button>
+              </form>
+            </div>
+            <p style="margin-top:14px;font-size:.9rem;color:var(--text-muted)"><a href="#" id="showLoginFromForgot" style="color:var(--accent)">Back to sign in</a></p>
+          </div>
+        </div>
+
+        <div id="profilePanel" hidden>
+          <button type="button" class="balance-badge" id="balanceBadge" title="View transaction history">
+            <i class="fas fa-wallet"></i>
+            <span id="balanceAmount">$0.00</span>
+          </button>
+          <h1>Profile</h1>
+          <div class="profile-card">
+            <div class="avatar"><i class="fas fa-user"></i></div>
+            <h2 id="profileName">—</h2>
+            <p class="role" id="profileRole">—</p>
+            <p class="bio" id="profileEmail">—</p>
+            <div class="profile-actions">
+              <button type="button" class="btn-primary" id="depositBtn"><i class="fas fa-plus-circle"></i> Deposit</button>
+              <button type="button" class="btn-ghost" id="withdrawBtn"><i class="fas fa-minus-circle"></i> Withdraw</button>
+            </div>
+            <div class="profile-actions secondary">
+              <button type="button" class="btn-ghost" id="editInfoBtn"><i class="fas fa-user-edit"></i> Edit Info</button>
+              <button type="button" class="btn-ghost danger" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+          </div>
+          <div class="tx-panel" id="txPanel" hidden>
+            <div class="tx-panel-header">
+              <h3>Transaction History</h3>
+              <button type="button" class="icon-btn" id="closeTxPanel"><i class="fas fa-times"></i></button>
+            </div>
+            <ul class="tx-list" id="txList"></ul>
+            <p class="tx-empty" id="txEmpty" hidden>No transactions yet.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="modalOverlay" hidden>
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modalTitle">—</h3>
+        <button type="button" class="icon-btn" id="modalClose"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <nav class="bottom-nav" id="bottomNav">
+    <div class="nav-indicator" id="navIndicator"></div>
+    <a href="#home" class="nav-item active" data-section="home"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="#about" class="nav-item" data-section="about"><i class="fas fa-info-circle"></i><span>About</span></a>
+    <a href="#contact" class="nav-item" data-section="contact"><i class="fas fa-envelope"></i><span>Contact</span></a>
+    <a href="#products" class="nav-item" data-section="products"><i class="fas fa-box-open"></i><span>Products</span></a>
+    <a href="#profile" class="nav-item" data-section="profile"><i class="fas fa-user-circle"></i><span>Profile</span></a>
+  </nav>
+
+  <script src="script.js"></script>
+</body>
+</html>

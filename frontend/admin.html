@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <div id="loginView" class="login-wrap">
+    <div class="login-card">
+      <h1><i class="fas fa-shield-alt"></i> Admin Login</h1>
+      <p class="muted">Manage products, members, funds & contacts</p>
+      <form id="loginForm">
+        <label>Username</label>
+        <input type="text" id="loginUser" value="admin" required autocomplete="username">
+        <label>Password</label>
+        <input type="password" id="loginPass" value="admin123" required autocomplete="current-password">
+        <button type="submit" class="btn-primary">Sign In</button>
+        <p id="loginError" class="error" hidden></p>
+      </form>
+      <p class="hint">Default: <code>admin</code> / <code>admin123</code></p>
+    </div>
+  </div>
+
+  <div id="appView" class="app" hidden>
+    <aside class="sidebar">
+      <div class="brand"><i class="fas fa-cube"></i> Admin
+        <button type="button" class="notif-bell" id="notifBell" title="Notifications">
+          <i class="fas fa-bell"></i>
+          <span class="nav-badge" id="notifBadge" hidden>0</span>
+        </button>
+      </div>
+      <div class="notif-panel" id="notifPanel" hidden>
+        <div class="notif-head"><strong>Notifications</strong>
+          <button type="button" class="btn-ghost btn-sm" id="markAllRead">Mark all read</button>
+        </div>
+        <ul id="notifList" class="notif-list"></ul>
+      </div>
+      <nav>
+        <button class="nav-btn active" data-tab="dashboard"><i class="fas fa-chart-line"></i> Dashboard</button>
+        <button class="nav-btn" data-tab="products"><i class="fas fa-box"></i> Products</button>
+        <button class="nav-btn" data-tab="members"><i class="fas fa-users"></i> Members</button>
+        <button class="nav-btn" data-tab="deposits"><i class="fas fa-bitcoin"></i> Deposits <span class="nav-badge" id="depositBadge" hidden>0</span></button>
+        <button class="nav-btn" data-tab="withdrawals"><i class="fas fa-money-bill-wave"></i> Withdrawals <span class="nav-badge" id="withdrawBadge" hidden>0</span></button>
+        <button class="nav-btn" data-tab="contacts"><i class="fas fa-envelope"></i> Contacts</button>
+        <button class="nav-btn" data-tab="invites"><i class="fas fa-ticket-alt"></i> Invite Codes</button>
+        <button class="nav-btn" data-tab="admins"><i class="fas fa-user-shield"></i> Admins</button>
+        <button class="nav-btn" data-tab="settings"><i class="fas fa-cog"></i> Settings</button>
+      </nav>
+      <button class="nav-btn logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </aside>
+
+    <main class="main">
+      <!-- Dashboard -->
+      <section id="tab-dashboard" class="tab active">
+        <h2>Dashboard</h2>
+        <div class="stats-grid">
+          <div class="stat-card"><span class="label">Members</span><span class="value" id="statMembers">0</span></div>
+          <div class="stat-card"><span class="label">Products</span><span class="value" id="statProducts">0</span></div>
+          <div class="stat-card"><span class="label">Messages</span><span class="value" id="statContacts">0</span></div>
+          <div class="stat-card"><span class="label">Transactions</span><span class="value" id="statTx">0</span></div>
+        </div>
+        <h3>Recent Transactions</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Type</th><th>User</th><th>Amount</th><th>Note</th><th>Date</th></tr></thead>
+            <tbody id="recentTxBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Products -->
+      <section id="tab-products" class="tab">
+        <div class="tab-header">
+          <h2>Products</h2>
+          <button class="btn-primary" id="addProductBtn"><i class="fas fa-plus"></i> Add Product</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Image</th><th>Name</th><th>Price</th><th>Stock</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="productsBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Members -->
+      <section id="tab-members" class="tab">
+        <h2>Registered Members</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Name</th><th>Email</th><th>Balance</th><th>Role</th><th>Joined</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="membersBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Deposit requests -->
+      <section id="tab-deposits" class="tab">
+        <h2>Deposit Requests</h2>
+        <p class="muted" style="margin-bottom:16px">Users request deposits and pay to your BTC address. Approve to credit their balance.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>User</th><th>Amount</th><th>Status</th><th>Requested</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="depositsBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Withdrawal requests -->
+      <section id="tab-withdrawals" class="tab">
+        <h2>Withdrawal Requests</h2>
+        <p class="muted" style="margin-bottom:16px">Approve to deduct balance and release funds to the user.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>User</th><th>Amount</th><th>Payout address</th><th>Status</th><th>Requested</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="withdrawalsBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Contacts -->
+      <section id="tab-contacts" class="tab">
+        <h2>Contact Messages</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Name</th><th>Email</th><th>Message</th><th>Date</th><th></th></tr>
+            </thead>
+            <tbody id="contactsBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Invite Codes -->
+      <section id="tab-invites" class="tab">
+        <div class="tab-header">
+          <h2>Invitation Codes</h2>
+          <button class="btn-primary" id="addInviteBtn"><i class="fas fa-plus"></i> Generate Code</button>
+        </div>
+        <p class="muted" style="margin-bottom:16px">Users must enter a valid code when registering.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Code</th><th>Used</th><th>Max</th><th>Status</th><th>Created</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="invitesBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Admins -->
+      <section id="tab-admins" class="tab">
+        <div class="tab-header">
+          <h2>Administrators</h2>
+          <button class="btn-primary" id="addAdminBtn"><i class="fas fa-plus"></i> Add Admin</button>
+        </div>
+        <p class="muted" style="margin-bottom:16px">Multiple admins can log in to this panel with their own username and password.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Username</th><th>Created</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="adminsBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Settings -->
+      <section id="tab-settings" class="tab">
+        <h2>Settings</h2>
+        <form id="settingsForm" class="form-card">
+          <label>Telegram URL</label>
+          <input type="url" id="setTelegram" placeholder="https://t.me/username">
+          <label>WhatsApp URL</label>
+          <input type="url" id="setWhatsapp" placeholder="https://wa.me/1234567890">
+          <label>Contact Email</label>
+          <input type="email" id="setEmail" placeholder="support@example.com">
+          <label>BTC deposit address</label>
+          <input type="text" id="setBtcAddress" placeholder="bc1...">
+          <label>Network label</label>
+          <input type="text" id="setBtcNetwork" placeholder="Bitcoin (BTC)">
+          <label>Deposit instructions</label>
+          <input type="text" id="setDepositInstructions" placeholder="Send exact amount...">
+          <button type="submit" class="btn-primary">Save Settings</button>
+        </form>
+        <form id="adminPassForm" class="form-card" style="margin-top:20px">
+          <h3>Change My Password</h3>
+          <p class="muted" style="font-size:.85rem;margin-bottom:8px">Updates the password for the account you are logged in with.</p>
+          <label>New Password</label>
+          <input type="password" id="newAdminPass" required minlength="4">
+          <button type="submit" class="btn-primary">Update Password</button>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal" hidden>
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="modalTitle">—</h3>
+        <button type="button" class="icon-btn" id="modalClose"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
